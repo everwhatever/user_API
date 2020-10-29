@@ -4,11 +4,13 @@
 namespace App\Service;
 
 
+use App\Entity\ApiToken;
 use App\Entity\User;
 use App\Form\Type\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class UserCRUDHelper
@@ -17,21 +19,12 @@ class UserCRUDHelper
     private $entityManager;
     private $formFactory;
 
-    public function __construct(EntityManagerInterface $entityManager, FormFactoryInterface $formFactory){
+    public function __construct(EntityManagerInterface $entityManager, FormFactoryInterface $formFactory)
+    {
 
         $this->entityManager = $entityManager;
         $this->formFactory = $formFactory;
     }
-
-
-//    public function serialize(User $user)
-//    {
-//        return [
-//            "email" => $user->getEmail(),
-//            "name" => $user->getName(),
-//            "password" => $user->getPassword()
-//        ];
-//    }
 
     /**
      * @param Request $request
@@ -56,6 +49,40 @@ class UserCRUDHelper
     }
 
     /**
+     * @param $user
+     * @param $data
+     * @param $passwordEncoder
+     * @return JsonResponse
+     */
+    public function createTokenForUser($user, $data, $passwordEncoder)
+    {
+        if ($passwordEncoder->isPasswordValid($user, $data['password'])) {
+            $apiToken = new ApiToken($user);
+            $this->entityManager->persist($apiToken);
+            $this->entityManager->flush();
+
+            return new JsonResponse(['token' => $apiToken->getToken()]);
+        } else {
+            return new JsonResponse([
+                'message' => 'invalid credentials'
+            ], 401);
+        }
+    }
+
+    /**
+     * @param $data
+     * @param $entityManager
+     * @return mixed
+     */
+    public function findUserByEmail($data, $entityManager)
+    {
+        $repository = $entityManager->getRepository(User::class);
+        $user = $repository->findOneBy(['email' => $data['email']]);
+
+        return $user;
+    }
+
+    /**
      * @param $request
      * @param $passwordEncoder
      * @return User
@@ -69,6 +96,7 @@ class UserCRUDHelper
             $user,
             $form['plainPassword']->getData()
         ));
+
 
         return $user;
     }
