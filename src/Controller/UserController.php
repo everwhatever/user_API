@@ -6,7 +6,9 @@ namespace App\Controller;
 
 use App\Entity\ApiToken;
 use App\Entity\User;
-use App\Service\UserCRUDHelper;
+use App\Service\CreateUser;
+use App\Service\FetchUser;
+use App\Service\UpdateUser;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,24 +23,25 @@ class UserController extends AbstractController
 {
 
     private $entityManager;
-    private $CRUDHelper;
     private $passwordEncoder;
+    private $fetchUser;
 
-    public function __construct(EntityManagerInterface $entityManager, UserCRUDHelper $CRUDHelper, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder, FetchUser $fetchUser)
     {
         $this->entityManager = $entityManager;
-        $this->CRUDHelper = $CRUDHelper;
         $this->passwordEncoder = $passwordEncoder;
+        $this->fetchUser = $fetchUser;
     }
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @param CreateUser $createUser
+     * @return JsonResponse
      * @Route("/users", methods={"POST"})
      */
-    public function createUserAction(Request $request)
+    public function createUserAction(Request $request, CreateUser $createUser)
     {
-        $user = $this->CRUDHelper->createUser($request, $this->passwordEncoder);
+        $user = $createUser->createUser($request, $this->passwordEncoder);
         $apiToken = new ApiToken($user);
 
         $this->entityManager->persist($apiToken);
@@ -73,7 +76,7 @@ class UserController extends AbstractController
      */
     public function displayOneUserAction($id)
     {
-        return $this->json($this->CRUDHelper->findUser($id), 200, [], [
+        return $this->json($this->fetchUser->findUser($id), 200, [], [
             'groups' => 'main'
         ]);
     }
@@ -81,13 +84,14 @@ class UserController extends AbstractController
     /**
      * @param $id
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @param UpdateUser $updateUser
+     * @return JsonResponse
      * @Route("/users/{id}", methods={"PUT"})
      * @IsGranted("ROLE_USER")
      */
-    public function updateUserAction($id, Request $request)
+    public function updateUserAction($id, Request $request, UpdateUser $updateUser)
     {
-        $user = $this->CRUDHelper->updateUser($id, $request);
+        $user = $updateUser->updateUser($id, $request);
 
         if ($this->getUser() === $user){
             $this->entityManager->persist($user);
@@ -110,7 +114,7 @@ class UserController extends AbstractController
      */
     public function deleteUserAction($id)
     {
-        $user = $this->CRUDHelper->findUser($id);
+        $user = $this->fetchUser->findUser($id);
         if ($this->getUser() === $user){
             if ($user) {
                 $this->entityManager->remove($user);
@@ -122,24 +126,6 @@ class UserController extends AbstractController
 
         return new JsonResponse([
             'message' => 'access denied'
-        ], 401);
-    }
-
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     * @Route("api/login")
-     */
-    public function login(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-        $user = $this->CRUDHelper->findUserByEmail($data, $this->entityManager);
-
-        if ($user) {
-            return $this->CRUDHelper->createTokenForUser($user, $data, $this->passwordEncoder);
-        }
-        return new JsonResponse([
-            'message' => 'invalid credentials'
         ], 401);
     }
 

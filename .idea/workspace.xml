@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdeb231f-dc87-4a70-bba1-0b5fc0630e59" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/ApiToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/user_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/user_app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/AuthenticationController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/CreateToken.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/CreateUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/FetchUser.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/UpdateUser.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/UserCRUDHelper.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/UserCRUDHelper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/UserCRUDHelper.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +104,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1jSo2pztOhPqnpzDSvTWTyUI3wS" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -133,7 +134,8 @@
       <option name="presentableId" value="Default" />
       <updated>1603806650105</updated>
       <workItem from="1603806651174" duration="2540000" />
-      <workItem from="1603988717036" duration="3142000" />
+      <workItem from="1603988717036" duration="4114000" />
+      <workItem from="1604242343705" duration="2403000" />
     </task>
     <servers />
   </component>
@@ -141,13 +143,25 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2613" y="297" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1603990682892">
+    <state x="2688" y="258" width="374" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1604244367854">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="2613" y="297" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1603990682892" />
+    <state x="2688" y="258" width="374" height="562" key="#com.intellij.ide.util.MemberChooser/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1604244367854" />
+    <state x="2613" y="297" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1604243417084">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2613" y="297" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1604243417084" />
+    <state x="2574" y="258" width="625" height="561" key="NewPhpClassDialog" timestamp="1604243210765">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2574" y="258" width="625" height="561" key="NewPhpClassDialog/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1604243210765" />
     <state x="482" y="187" key="SettingsEditor" timestamp="1603813643001">
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="482" y="187" key="SettingsEditor/67.27.1853.1053/1920.0.1920.1080@67.27.1853.1053" timestamp="1603813643001" />
+    <state x="2571" y="104" width="618" height="870" key="find.popup" timestamp="1604242590498">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2571" y="104" width="618" height="870" key="find.popup/67.27.1853.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1604242590498" />
   </component>
 </project>
